@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-br" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Adeus, Amor</title>
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Poppins&family=Roboto+Mono&display=swap" rel="stylesheet" />
+  
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      font-family: 'Poppins', sans-serif;
+      background: url('fundo-triste.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #f5f5f5;
+      overflow-x: hidden;
+      position: relative;
+      scroll-behavior: smooth;
+    }
+    /* Camada escura para contraste */
+    body::before {
+      content: '';
+      position: fixed;
+      top:0; left:0; right:0; bottom:0;
+      background: rgba(0,0,0,0.85);
+      z-index: -1;
+    }
+
+    /* Container geral */
+    .container {
+      max-width: 850px;
+      margin: auto;
+      padding: 40px 20px 100px 20px;user-select: none;
+      position: relative;
+      z-index: 10;
+      text-align: center;
+    }
+
+    /* Títulos grandes */
+    h1, h2 {
+      font-family: 'Caveat', cursive;
+      color: #ff5e5e;
+      text-shadow: 0 0 15px #ff5e5eaa;
+      margin-bottom: 25px;
+    }
+    h1 {
+      font-size: 4rem;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 4px solid #ff5e5e;
+      width: 0;
+      animation: typing 6s steps(60, end) forwards;
+    }
+    h2 {
+      font-size: 2.8rem;
+    }
+
+    @keyframes typing {
+      to { width: 100%; }
+    }
+
+    /* Textos */
+    p {
+      font-size: 1.2rem;
+      line-height: 1.9;
+      color: #ddd;
+      text-shadow: 0 0 10px rgba(0,0,0,0.85);
+      white-space: pre-line;
+      margin-bottom: 45px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Botão interativo */
+    button {
+      background-color: #ff5e5e;
+      border: none;
+      color: white;
+      padding: 14px 45px;
+      font-size: 1.2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 0 25px #ff5e5e99;
+      transition: background-color 0.3s ease;
+      margin-bottom: 50px;
+      user-select: none;
+    }
+    button:hover {
+      background-color: #ff4040;
+    }
+
+    /* Carta escondida */
+    #carta {
+      background-color: rgba(30,30,30,0.95);
+      border-radius: 20px;
+      padding: 30px 40px;
+      box-shadow: 0 0 40px #ff5e5eaa;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 1.15rem;
+      color: #eee;
+      line-height: 1.8;
+      white-space: pre-line;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.9s ease, padding 0.9s ease;
+      margin-bottom: 60px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    #carta.show {
+      max-height: 900px;
+      padding: 30px 40px;
+    }
+
+    /* Música fixada no rodapé */
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0; right: 0;
+      background: rgba(0,0,0,0.9);
+      padding: 15px 20px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #aaa;
+      user-select: none;
+      z-index: 20;
+    }audio {
+      outline: none;
+      border-radius: 20px;
+      box-shadow: 0 0 30px #ff5e5eaa;
+      width: 100%;
+      max-width: 650px;
+      cursor: pointer;
+    }
+
+    /* Partículas de chuva */
+    .rain {
+      pointer-events: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 5;
+      overflow: hidden;
+    }
+    .drop {
+      position: absolute;
+      bottom: 100%;
+      width: 2px;
+      height: 15px;
+      background: linear-gradient(to bottom, #ff5e5e99, transparent);
+      animation-name: fall;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      border-radius: 1px;
+    }
+    @keyframes fall {
+      to {
+        transform: translateY(110vh);
+      }
+    }
+
+    /* Botão voltar ao topo */
+    #topBtn {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      background-color: #ff5e5e;
+      border: none;
+      color: white;
+      padding: 15px 20px;
+      font-size: 1.3rem;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 0 20px #ff5e5eaa;
+      display: none;
+      z-index: 30;
+      user-select: none;
+      transition: background-color 0.3s ease;
+    }
+    #topBtn:hover {
+      background-color: #ff4040;
+    }
+
+    /* Responsividade */
+    @media (max-width: 720px) {
+      h1 {
+        font-size: 2.8rem;
+        border-right: 3px solid #ff5e5e;
+      }
+      h2 {
+        font-size: 2rem;
+      }
+      p {
+        font-size: 1rem;
+        max-width: 90vw;
+      }
+      button {
+        padding: 12px 30px;
+        font-size: 1rem;
+      }
+      audio {
+        max-width: 90vw;
+      }
+      #topBtn {
+        padding: 12px 18px;
+        font-size: 1.1rem;
+        bottom: 70px;
+        right: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="rain" id="rain"></div>
+
+  <div class="container">
+    <h1>"Eu só queria que você fosse feliz..."</h1>
+
+    <section id="dor">
+      <h2>Minha Dor</h2>
+      <p>
+        Fiquei horas tentando entender tudo... onde eu errei, por que eu fui assim.
+        Prometi que ia mudar, que ia ser melhor, mas falhei. Não cumpri minhas
+        promessas, sumi quando você mais precisava de mim... e agora, tudo que me
+        resta é o vazio. Uma dor que corrói em silêncio. Um coração que chora calado.
+      </p>
+    </section>
+
+    <section id="promessas">
+      <h2>Promessas Quebradas</h2>
+      <p>
+        Eu disse que estaria sempre contigo.  
+        Prometi que não ia mais sumir.  
+        Que mudaria meus hábitos por você.  
+        Mas as palavras que saíram da minha boca foram só promessas vazias...  
+        ...e você merecia muito mais.
+      </p>
+    </section>
+
+    <section id="carta-section">
+      <button id="toggleCarta">Leia minha carta</button>
+      <div id="carta">
+Eu tentei... tentei ser forte, tentei ser o melhor pra você, tentei mudar por você.  
+Mas no fim, eu fracassei.
+
+Fiquei horas pensando em como colocar tudo isso em palavras.  
+Mas nada parece suficiente pra expressar o que sinto agora.
+
+Me perdoa por não ser o cara que você precisava.  
+Talvez eu nunca seja esse cara pra ninguém.
+
+Não quero te prender à minha dor.  
+Quero que você voe, que encontre alguém que cuide de você como eu
