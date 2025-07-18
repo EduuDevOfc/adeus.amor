@@ -1,262 +1,243 @@
 <!DOCTYPE html>
-<html lang="pt-br" >
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Adeus, Amor</title>
-  
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Poppins&family=Roboto+Mono&display=swap" rel="stylesheet" />
-  
+  <title>Despedida & Dor</title>
+
+  <!-- Fonte sóbria e limpa -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&display=swap" rel="stylesheet" />
+
   <style>
     /* Reset básico */
     * {
       margin: 0; padding: 0; box-sizing: border-box;
     }
+
     html, body {
       height: 100%;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Montserrat', sans-serif;
       background: url('fundo-triste.jpg') no-repeat center center fixed;
       background-size: cover;
-      color: #f5f5f5;
+      color: #ccc;
       overflow-x: hidden;
       position: relative;
       scroll-behavior: smooth;
     }
-    /* Camada escura para contraste */
+
+    /* Camada preta semi-transparente pra destacar texto */
     body::before {
       content: '';
       position: fixed;
       top:0; left:0; right:0; bottom:0;
-      background: rgba(0,0,0,0.85);
+      background-color: rgba(10, 10, 10, 0.85);
       z-index: -1;
     }
 
-    /* Container geral */
+    /* Container principal */
     .container {
-      max-width: 850px;
-      margin: auto;
-      padding: 40px 20px 100px 20px;user-select: none;
-      position: relative;
-      z-index: 10;
-      text-align: center;
-    }
-
-    /* Títulos grandes */
-    h1, h2 {
-      font-family: 'Caveat', cursive;
-      color: #ff5e5e;
-      text-shadow: 0 0 15px #ff5e5eaa;
-      margin-bottom: 25px;
-    }
-    h1 {
-      font-size: 4rem;
-      white-space: nowrap;
-      overflow: hidden;
-      border-right: 4px solid #ff5e5e;
-      width: 0;
-      animation: typing 6s steps(60, end) forwards;
-    }
-    h2 {
-      font-size: 2.8rem;
-    }
-
-    @keyframes typing {
-      to { width: 100%; }
-    }
-
-    /* Textos */
-    p {
-      font-size: 1.2rem;
-      line-height: 1.9;
-      color: #ddd;
-      text-shadow: 0 0 10px rgba(0,0,0,0.85);
-      white-space: pre-line;
-      margin-bottom: 45px;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    /* Botão interativo */
-    button {
-      background-color: #ff5e5e;
-      border: none;
-      color: white;
-      padding: 14px 45px;
-      font-size: 1.2rem;
-      border-radius: 50px;
-      cursor: pointer;
-      box-shadow: 0 0 25px #ff5e5e99;
-      transition: background-color 0.3s ease;
-      margin-bottom: 50px;
+      max-width: 800px;
+      margin: 60px auto 120px auto;
+      padding: 20px 25px;
+      background-color: rgba(20,20,20,0.7);
+      border-radius: 10px;
+      box-shadow: 0 0 40px rgba(0,0,0,0.9);
       user-select: none;
     }
-    button:hover {
-      background-color: #ff4040;
+
+    h1 {
+      font-weight: 500;
+      font-size: 3rem;
+      margin-bottom: 25px;
+      color: #aaa;
+      text-align: center;
+      letter-spacing: 2px;
+      user-select: text;
     }
 
-    /* Carta escondida */
-    #carta {
-      background-color: rgba(30,30,30,0.95);
-      border-radius: 20px;
-      padding: 30px 40px;
-      box-shadow: 0 0 40px #ff5e5eaa;
-      font-family: 'Roboto Mono', monospace;
+    p {
+      font-weight: 300;
       font-size: 1.15rem;
-      color: #eee;
       line-height: 1.8;
-      white-space: pre-line;
+      color: #ddd;
+      white-space: pre-wrap;
+      user-select: text;
+      margin-bottom: 30px;
+    }
+
+    button {
+      display: block;
+      margin: 0 auto 50px auto;
+      background-color: #444;
+      border: 2px solid #666;
+      color: #ddd;
+      padding: 12px 36px;
+      font-size: 1.1rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      user-select: none;
+      box-shadow: 0 0 15px #555;
+    }
+    button:hover {
+      background-color: #666;
+      border-color: #999;
+      box-shadow: 0 0 25px #999;
+    }
+
+    /* Carta escondida inicialmente */
+    #carta {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.9s ease, padding 0.9s ease;
-      margin-bottom: 60px;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
+      opacity: 0;
+      transition: max-height 0.8s ease, opacity 0.8s ease, padding 0.8s ease;
+      background-color: #111;
+      border-radius: 10px;
+      padding: 0 25px;
+      box-shadow: inset 0 0 10px #222;
+      user-select: text;
+      color: #ccc;
+      font-weight: 300;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 50px;
     }
     #carta.show {
       max-height: 900px;
-      padding: 30px 40px;
+      opacity: 1;
+      padding: 25px;
     }
 
-    /* Música fixada no rodapé */
     footer {
       position: fixed;
-      bottom: 0;
+>bottom: 0;
       left: 0; right: 0;
-      background: rgba(0,0,0,0.9);
-      padding: 15px 20px;
+      background-color: #111;
+      padding: 12px 20px;
       text-align: center;
-      font-size: 0.9rem;
-      color: #aaa;
+      box-shadow: 0 -5px 10px #000 inset;
+      z-index: 1000;
       user-select: none;
-      z-index: 20;
-    }audio {
-      outline: none;
-      border-radius: 20px;
-      box-shadow: 0 0 30px #ff5e5eaa;
-      width: 100%;
-      max-width: 650px;
-      cursor: pointer;
     }
 
-    /* Partículas de chuva */
-    .rain {
-      pointer-events: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: 5;
-      overflow: hidden;
-    }
-    .drop {
-      position: absolute;
-      bottom: 100%;
-      width: 2px;
-      height: 15px;
-      background: linear-gradient(to bottom, #ff5e5e99, transparent);
-      animation-name: fall;
-      animation-timing-function: linear;
-      animation-iteration-count: infinite;
-      border-radius: 1px;
-    }
-    @keyframes fall {
-      to {
-        transform: translateY(110vh);
-      }
+    audio {
+      width: 100%;
+      max-width: 600px;
+      outline: none;
+      border-radius: 10px;
+      box-shadow: 0 0 30px #555;
+      cursor: pointer;
+      background-color: #222;
     }
 
     /* Botão voltar ao topo */
     #topBtn {
       position: fixed;
-      bottom: 80px;
+      bottom: 70px;
       right: 20px;
-      background-color: #ff5e5e;
+      background-color: #333;
       border: none;
-      color: white;
-      padding: 15px 20px;
+      color: #ddd;
+      padding: 14px 22px;
       font-size: 1.3rem;
       border-radius: 50px;
       cursor: pointer;
-      box-shadow: 0 0 20px #ff5e5eaa;
+      box-shadow: 0 0 20px #555;
       display: none;
-      z-index: 30;
       user-select: none;
       transition: background-color 0.3s ease;
+      z-index: 1001;
     }
     #topBtn:hover {
-      background-color: #ff4040;
+      background-color: #555;
     }
 
-    /* Responsividade */
-    @media (max-width: 720px) {
-      h1 {
-        font-size: 2.8rem;
-        border-right: 3px solid #ff5e5e;
-      }
-      h2 {
-        font-size: 2rem;
-      }
-      p {
-        font-size: 1rem;
-        max-width: 90vw;
-      }
-      button {
-        padding: 12px 30px;
-        font-size: 1rem;
-      }
-      audio {
-        max-width: 90vw;
-      }
-      #topBtn {
-        padding: 12px 18px;
-        font-size: 1.1rem;
-        bottom: 70px;
-        right: 15px;
-      }
-    }
   </style>
 </head>
 <body>
 
-  <div class="rain" id="rain"></div>
-
   <div class="container">
-    <h1>"Eu só queria que você fosse feliz..."</h1>
+    <h1>Eu só queria que você fosse feliz...</h1>
 
-    <section id="dor">
-      <h2>Minha Dor</h2>
-      <p>
-        Fiquei horas tentando entender tudo... onde eu errei, por que eu fui assim.
-        Prometi que ia mudar, que ia ser melhor, mas falhei. Não cumpri minhas
-        promessas, sumi quando você mais precisava de mim... e agora, tudo que me
-        resta é o vazio. Uma dor que corrói em silêncio. Um coração que chora calado.
-      </p>
-    </section>
+    <p>
+      Eu sei que errei.  
+      Prometi ser diferente, mas falhei.  
+      Sumir, deixar o silêncio crescer — isso doeu mais do que posso dizer.  
+      Cada segundo longe de você é um vazio difícil de suportar.  
+      Você merece alguém que nunca desapareça, alguém que cuide do seu coração do jeito que você merece.
+    </p>
 
-    <section id="promessas">
-      <h2>Promessas Quebradas</h2>
-      <p>
-        Eu disse que estaria sempre contigo.  
-        Prometi que não ia mais sumir.  
-        Que mudaria meus hábitos por você.  
-        Mas as palavras que saíram da minha boca foram só promessas vazias...  
-        ...e você merecia muito mais.
-      </p>
-    </section>
+    <button id="toggleCarta">Leia minha carta</button>
 
-    <section id="carta-section">
-      <button id="toggleCarta">Leia minha carta</button>
-      <div id="carta">
-Eu tentei... tentei ser forte, tentei ser o melhor pra você, tentei mudar por você.  
+    <div id="carta">
+Eu tentei ser forte, tentei ser o melhor pra você, tentei mudar por você.  
 Mas no fim, eu fracassei.
 
 Fiquei horas pensando em como colocar tudo isso em palavras.  
-Mas nada parece suficiente pra expressar o que sinto agora.
+Nada parece suficiente pra mostrar o que sinto.
 
 Me perdoa por não ser o cara que você precisava.  
 Talvez eu nunca seja esse cara pra ninguém.
 
 Não quero te prender à minha dor.  
-Quero que você voe, que encontre alguém que cuide de você como eu
+Quero que você voe, que encontre alguém que cuide de você como eu não soube fazer.  
+Que te ame do jeito que você merece ser amada.
+
+Eu desisto... não da vida, mas de insistir em algo que eu só machuquei.  
+Eu desisto de tentar me explicar, de tentar consertar algo que eu mesmo destruí.
+
+Essa é minha despedida, mas não do mundo...  
+É a despedida de quem eu fui com você.  
+Um adeus a tudo o que poderia ter sido.
+
+Só te peço uma última coisa:
+
+Nunca esquece do quanto eu te amei.  
+Mesmo que não pareça... mesmo que tenha falhado...  
+Eu te amei com tudo que eu tinha.
+
+Adeus, minha Emily. 💔
+    </div>
+
+  </div>
+
+  <button id="topBtn" title="Voltar ao topo">↑</button>
+
+  <footer>
+    <audio id="musica" controls autoplay loop>
+      <source src="audio/musica-triste.mp3" type="audio/mpeg" />
+      Seu navegador não suporta áudio.
+    </audio>
+  </footer>
+
+  <script>
+    // Mostrar/esconder carta
+    const btn = document.getElementById('toggleCarta');
+    const carta = document.getElementById('carta');
+    btn.addEventListener('click', () => {
+      if (carta.classList.contains('show')) {
+        carta.classList.remove('show');
+        btn.textContent = 'Leia minha carta';
+      } else {
+        carta.classList.add('show');
+        btn.textContent = 'Esconder carta';
+        carta.scrollIntoView({behavior: 'smooth'});
+      }
+    });
+
+    // Botão voltar ao topo
+    const topBtn = document.getElementById('topBtn');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        topBtn.style.display = 'block';
+      } else {
+        topBtn.style.display = 'none';
+      }
+    });
+    topBtn.addEventListener('click', () => {
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+  </script>
+
+</body>
+</html
